@@ -1,0 +1,11 @@
+<h2>Bicycle</h2>
+<ul class="list-group">
+  <li *ngFor="let ranger of rangers" class="list-group-item d-flex justify-content-between align-items-center">
+    <img src={{ranger.img}}>
+    <span class="badge">{{ranger.id}}</span>
+    <h3> {{ranger.name}} Bicycle {{ranger.numOfTrees}}</h3> <img src="assets/img/bike.png">
+    <button type="button" class="btn btn-success" (click)="addTree(ranger)">+</button>
+    <button type="button" class="btn btn-primary btn-sm" (click)="reportTrees(ranger)">report bicycles</button>
+
+  </li>
+</ul>

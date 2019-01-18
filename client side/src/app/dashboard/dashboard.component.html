@@ -1,0 +1,10 @@
+<h3>Top Users</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let ranger of rangers" class="col-1-4">
+    <div class="module ranger">
+      <img src={{ranger.img}}>
+      <h4>{{ranger.name}}</h4> with {{ranger.numOfTrees}} Bicycles
+    </div>
+  </a>
+</div>
+

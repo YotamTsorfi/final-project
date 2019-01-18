@@ -1,0 +1,26 @@
+{
+  "name": "untitled3",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "ip-regex": "^3.0.0",
+    "jade": "~1.11.0",
+    "jade-bootstrap": "^1.0.14",
+    "kerberos": "~0.0.17",
+    "method-override": "~2.1.2",
+    "mongodb": "^3.0.10",
+    "mongojs": "^2.6.0",
+    "mongoose": "~3.6.2",
+    "mongoose-unique-validator": "^2.0.1",
+    "morgan": "~1.9.0",
+    "simple-ssh": "^1.0.0"
+  }
+}
