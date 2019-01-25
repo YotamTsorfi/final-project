@@ -4,7 +4,7 @@ var mongojs = require('mongojs');
 var db = mongojs('mongodb://shimi:primenum13@ds259499.mlab.com:59499/mytasklist_brad', ['tasks']);
 
 /* update numOfTrees */
-router.get('/bikes', function (req, res, next) {
+router.get('/rangers/:id/:numOfTrees', function (req, res, next) {
 	db.tasks.findAndModify({
 		query: { id: req.params.id},
 		update: { $set: { numOfTrees: req.params.numOfTrees } },
@@ -17,6 +17,7 @@ router.get('/bikes', function (req, res, next) {
 
 /* GET rangerse. */
 router.get('/rangers/', function(req, res, next) {
+	console.log("tasks");
     db.tasks.find(function(err, tasks) {
         if(err){
             res.send(err);

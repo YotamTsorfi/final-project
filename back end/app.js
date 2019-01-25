@@ -2,11 +2,13 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var indexRouter = require('./routes/index');
+var indexRouter = require('./api/index');
 var logger = require('morgan');
-var bodyParser = require('body-parser');
 var app = express();
-var tasks = require('./routes/tasks');
+var tasks = require('./api/tasks');
+var transport = require('./api/transport');
+var deals = require('./api/deals');
+var users = require('./api/users');
 
 
 app.locals.videodata = require('./videodata.json');
@@ -19,16 +21,20 @@ app.use(function(req, res, next) {
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter);
+
+// api routes
 app.use('/api', tasks);
+app.use('/api/transport', transport);
+// app.use('/api/deals', deals);
+// app.use('/api/users', users);
 
 
 // catch 404 and forward to error handler
