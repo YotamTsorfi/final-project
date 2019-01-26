@@ -1,4 +1,4 @@
-var mongojs = require('mongojs');
+var mongoCon = require('./mongoCon');
 var errRes = {
     err: 1,
     errDesc: "",
@@ -9,35 +9,11 @@ var errRes = {
 */
 module.exports = {
 
-    mongoDBCon: async function() {
-        console.log("connect to db");
-        let credentials = {
-            url: "@ds161224.mlab.com",
-            port: "61224",
-            db: "trans_social_rent",
-            username: "shimi",
-            password: "primenum13",
-            collection: "transportation"
-        };
-
-        let url = "mongodb://" + credentials.username + ':' + credentials.password +  credentials.url + ':' + credentials.port + '/' + credentials.db;
-
-        try {
-
-            var db = mongojs(url, [credentials.collection]);
-            return db;
-
-        } catch (error) {
-            console.log(error);
-            errRes.errDesc = "error to connect mongoDB";
-            return errRes;
-        }
-    },
     getBikes: async function() {
         console.log("get bikes ");
         try {
             
-            let db = await this.mongoDBCon();
+            let db = await mongoCon.mongoDBCon();
 
             var res = await new Promise(function(resolve, reject) {
                 db.transportation.find((err, bikes) => {
@@ -60,7 +36,7 @@ module.exports = {
 
         try {
             console.log("get one bike ", bikeId);
-            let db = await this.mongoDBCon();
+            let db = await mongoCon.mongoDBCon();
 
             var res = await new Promise(function(resolve, reject) {
                 db.transportation.findOne({
@@ -87,24 +63,20 @@ module.exports = {
     updateBike: async function(bikeId, body) {
 
         try {
-            console.log("update bike ", bikeId);
-            let db = await this.mongoDBCon();
+            console.log("update bike ", bikeId, body.type);
+            let db = await mongoCon.mongoDBCon();
 
             var res = await new Promise(function(resolve, reject) {
-                db.transportation.findOne({
-                    _id: mongojs.ObjectId(bikeId)
-                }, function(err, bike) {
-                    if(err) reject(err);
-                    console.log(bike);
-                    resolve(bike);
-                })
-                // find all named 'mathias' and increment their level
-                db.transportation.update({_id: bikeId}, {type: 'electric'}, function (err, bike) {
+                // update bike by id
+                db.transportation.findAndModify({
+                    query: { _id: "5c41ac88fb6fc0600be31c9b"},
+                    update: { $set: { type: body.type } },
+                    new: true
+                }, function (err, bike) {
                     if(err) reject(err);
                     resolve(bike);
                 })
 
-                // let updatesBike = await this.getBike(bikeId);
                 return res;
 
               }).catch((err) => {

@@ -1,13 +1,18 @@
 var express = require('express');
 var router = express.Router();
-var mongojs = require('mongojs');
-var db = require('../mongoDB/mongoQuerys');
+var db = require('../mongoDB/userQueries');
 
-/* update numOfTrees */
-router.get('/bikes', function (req, res, next) {
-	let bikes = db.mongoDBCon();
-	console.log(typeof bikes);
+/* get user */
+router.get('/user/:id', function (req, res, next) {
+	let user = db.getUser(req.params.id);
+	res.send(user);
 });
+
+/* get user */
+router.get('/', function (req, res, next) {
+	res.render('index', { title: 'Express' });
+});
+
 
 /* GET rangerse. */
 router.get('/rangers/', function(req, res, next) {

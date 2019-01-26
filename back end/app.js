@@ -34,7 +34,7 @@ app.use('/', indexRouter);
 app.use('/api', tasks);
 app.use('/api/transport', transport);
 // app.use('/api/deals', deals);
-// app.use('/api/users', users);
+app.use('/api/users', users);
 
 
 // catch 404 and forward to error handler

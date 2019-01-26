@@ -1,8 +1,9 @@
 
 /*
-    connect to mongo db
+    validations
 */
 module.exports = {
+
     name : function (field) {
         return /^[a-zא-תA-Z ]{2,40}$/.test(field);
     },
@@ -27,4 +28,5 @@ module.exports = {
     number : function (field) {
         return /^[0-9]{1,30}$/.test(field) ;
     }
+    
 };
