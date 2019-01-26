@@ -1,9 +1,12 @@
 var mongoCon = require('./mongoCon');
+var mongojs = require('mongojs');
+
 var errRes = {
     err: 1,
     errDesc: "",
     res: {}
 };
+
 /*
     connect to mongo db
 */
@@ -41,10 +44,10 @@ module.exports = {
             var res = await new Promise(function(resolve, reject) {
                 db.transportation.findOne({
                     _id: mongojs.ObjectId(bikeId)
-                }, function(err, doc) {
+                }, function(err, bike) {
                     if(err) reject(err);
-                    console.log(doc);
-                    resolve(doc);
+                    console.log(bike);
+                    resolve(bike);
                 })
 
               }).catch((err) => {
@@ -67,13 +70,12 @@ module.exports = {
             let db = await mongoCon.mongoDBCon();
 
             var res = await new Promise(function(resolve, reject) {
-                // update bike by id
+
                 db.transportation.findAndModify({
-                    query: { _id: "5c41ac88fb6fc0600be31c9b"},
-                    update: { $set: { type: body.type } },
+                    query: { _id: mongojs.ObjectId(bikeId) },
+                    update: { $set: body },
                     new: true
                 }, function (err, bike) {
-                    if(err) reject(err);
                     resolve(bike);
                 })
 
@@ -92,5 +94,57 @@ module.exports = {
             return error;
         }
     },
+    createBike: async function(bike) {
+
+        try {
+            console.log("create bike ", bike);
+            let db = await mongoCon.mongoDBCon();
+
+            var res = await new Promise(function(resolve, reject) {
+
+                let bikeInfo = db.transportation.insert(bike);
+                resolve("creating bike");
+                return bikeInfo;
+
+              }).catch((err) => {
+                  console.log("error in mongoos", err);
+                  errRes.errDesc = "bike doesn't exist";
+                  return errRes;
+              });
+
+              return res;
+
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    },
+    deleteBike: async function(bikeId) {
+
+        try {
+            console.log("delete bike ", bikeId);
+            let db = await mongoCon.mongoDBCon();
+
+            var res = await new Promise(function(resolve, reject) {
+
+                let bikeInfo = db.transportation.remove( { _id: mongojs.ObjectId(bikeId) });
+
+                resolve("delete bike");
+
+                return bikeInfo;
+
+              }).catch((err) => {
+                  console.log("error in mongoos", err);
+                  errRes.errDesc = "bike doesn't exist";
+                  return errRes;
+              });
+
+              return res;
+
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
     
 };

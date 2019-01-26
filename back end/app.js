@@ -33,7 +33,7 @@ app.use('/', indexRouter);
 // api routes
 app.use('/api', tasks);
 app.use('/api/transport', transport);
-// app.use('/api/deals', deals);
+app.use('/api/deals', deals);
 app.use('/api/users', users);
 
 
@@ -41,11 +41,6 @@ app.use('/api/users', users);
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-
-// body parser MW
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extend: false}));
 
 // error handler
 app.use(function(err, req, res, next) {
