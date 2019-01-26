@@ -16,7 +16,6 @@ router.get('/bike/:id', async function (req, res, next) {
 
 /* update bike */
 router.put('/bike/:id', async function (req, res, next) {
-	console.log(req.body);
 	let updatedBike = await db.updateBike(req.params.id, req.body);
 	res.send(updatedBike);
 });
@@ -27,9 +26,15 @@ router.delete('/bike/:id', async function (req, res, next) {
 	res.send(deleteBike);
 });
 
+/* create bike */
+router.post('/bike', async function (req, res, next) {
+	let bike = await db.createBike(req.body);
+	res.send(bike);
+});
+
 
 /* get near by bikes */
-// TODO 
+// TODO
 
 // to proceed in new page
 module.exports = router;
