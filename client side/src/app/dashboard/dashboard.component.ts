@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Ranger } from '../ranger';
-import { RangerService } from '../ranger.service';
+import { Bike } from '../objects/bike';
+import { BikesService } from '../bikes.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,16 +8,16 @@ import { RangerService } from '../ranger.service';
   styleUrls: [ './dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit {
-  rangers: Ranger[] = [];
+  bikes: Bike[] = [];
 
-  constructor(private rangerService: RangerService) { }
+  constructor(private bikesService: BikesService) { }
 
   ngOnInit() {
-    this.getRangers();
+    this.getBikes();
   }
 
-  getRangers(): void {
-    this.rangerService.getRangers()
-      .subscribe(rangers => this.rangers = rangers.slice(1, 5));
+  getBikes(): void {
+    this.bikesService.getBikes()
+      .subscribe(bikes => this.bikes = bikes.slice(1, 5));
   }
 }

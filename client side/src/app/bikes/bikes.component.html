@@ -1,0 +1,12 @@
+<h2>Bicycle</h2>
+<ul class="list-group">
+  <li *ngFor="let bike of bikes" class="list-group-item d-flex justify-content-between align-items-center">
+    <img src={{bike.img}}>
+    <span class="badge">{{bike.status}}</span>
+    <h3> {{bike.type}}</h3>
+    <h3> {{bike.size}}</h3> 
+    <h3> {{bike.price}}</h3>
+    <h3> {{bike.status}}</h3>
+    <h3> {{bike.speed}}</h3>
+  </li>
+</ul>

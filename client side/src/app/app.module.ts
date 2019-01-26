@@ -7,8 +7,9 @@ import { AppRoutingModule }     from './app-routing.module';
 
 import { AppComponent }         from './app.component';
 import { DashboardComponent }   from './dashboard/dashboard.component';
-import { RangersComponent }      from './rangers/rangers.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BikesComponent } from './bikes/bikes.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     DashboardComponent,
-    RangersComponent
+    BikesComponent,
+    MapComponent
   ],
   bootstrap: [ AppComponent ]
 })
